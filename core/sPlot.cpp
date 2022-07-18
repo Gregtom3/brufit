@@ -133,7 +133,7 @@ namespace HS{
       wts->Merge(SetUp().GetOutDir()+"/Weights",
 		 SetUp().GetOutDir()+"/"+SetUp().GetName()+"Tweights.root",
 		 "HSsWeights");
-      //wts->Save();
+      wts->Save();
 
       //reset to save and reopen
       wts.reset(new Weights{});
@@ -180,7 +180,19 @@ namespace HS{
       if(cut==TString()) cut="1";
      
       fWeightedFiledTree->Tree()->Draw(var,wname+"*("+cut+")",opt);
+    }
+      
+    void sPlot::saveWeightedTree(const char* c){
+      if(!fWeightedFiledTree.get())
+	WeightedTree();
 
+      if(!fWeightedFiledTree.get())
+	return;
+
+      TFile *fOut=new TFile(c,"RECREATE");
+      TTree *t=fWeightedFiledTree->Tree().get()->CloneTree();
+      t->Write();
+      fOut->Close();
     }
 
     Bool_t sPlot::ZeroYieldCheck(){

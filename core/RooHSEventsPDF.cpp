@@ -89,7 +89,7 @@ namespace HS{
       
    
       if(fWeights){
-	fWeights->Save();
+	//	fWeights->Save();
 	delete fWeights;
       }
       if(fInWeights){

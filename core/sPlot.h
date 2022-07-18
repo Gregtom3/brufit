@@ -11,7 +11,8 @@
 #include "Setup.h"
 #include "Weights.h"
 #include <RooStats/SPlot.h>
- 
+#include <TFile.h>
+
 namespace HS{
   namespace FIT{
 
@@ -48,17 +49,17 @@ namespace HS{
       TTree* GetWeightedTree(){return fWeightedFiledTree->Tree().get();};
       void DeleteWeightedTree(){fWeightedFiledTree.reset();};
       
+      void saveWeightedTree(const char *);
     protected:
       
       void WeightedTree();
       Bool_t ZeroYieldCheck();
-      
+        
     private:
       splot_shptr fSPlot; //!sPlot object
       weights_ptr fWeights;//!
       tree_shptr fWeightedTree;//!
       filed_shptr fWeightedFiledTree;//!
-
       TString fSingleYield;//!
       std::vector<TString> fZeroYields;//!
       
